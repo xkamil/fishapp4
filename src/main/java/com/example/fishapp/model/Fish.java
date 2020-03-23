@@ -29,6 +29,8 @@ public class Fish {
 
     private BigDecimal length;
 
+    private String imageUrl;
+
     @ManyToOne
     @JsonIgnore
     private User user;

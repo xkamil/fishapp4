@@ -2,18 +2,19 @@ package com.example.fishapp.controller;
 
 import com.example.fishapp.dto.FishCreateDto;
 import com.example.fishapp.model.Fish;
-import com.example.fishapp.service.FishService;
-import com.example.fishapp.repository.FishRepository;
 import com.example.fishapp.model.User;
+import com.example.fishapp.repository.FishRepository;
+import com.example.fishapp.service.FishService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/fishes")
@@ -28,8 +29,10 @@ public class FishController {
         this.fishService = fishService;
     }
 
-    @PostMapping
-    private Fish create(@RequestAttribute @NotNull User user, @RequestBody @Valid FishCreateDto fishCreateDto) {
+    @PostMapping(consumes = {"multipart/form-data"})
+    public Fish create(
+            @RequestAttribute @NotNull User user,
+            @ModelAttribute @Valid FishCreateDto fishCreateDto) throws Exception {
         return fishService.createFish(fishCreateDto, user);
     }
 
@@ -38,8 +41,4 @@ public class FishController {
         return fishRepository.findByUser(user);
     }
 
-    @GetMapping
-    private List<Fish> getInRange(@RequestParam List<UUID> userIds, @RequestParam BigDecimal range) {
-        return fishService.findFishes(userIds, range);
-    }
 }

@@ -5,3 +5,12 @@ spring:
     console:
       enabled: true
       path: /h2-console
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+cloudinary:
+  cloudName: dcqsz042g
+  apiKey: 786245647955224
+  apiSecret: sbj0b1NVqW5ztYOAkn43jRjI1pQ

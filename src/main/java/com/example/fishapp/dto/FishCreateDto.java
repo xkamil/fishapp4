@@ -1,6 +1,7 @@
 package com.example.fishapp.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -8,6 +9,9 @@ import java.math.BigDecimal;
 
 @Data
 public class FishCreateDto {
+
+    @NotNull
+    private MultipartFile image;
 
     @NotNull
     private BigDecimal lat;
@@ -18,9 +22,9 @@ public class FishCreateDto {
     @NotEmpty
     private String species;
 
-    @NotEmpty
+    @NotNull
     private BigDecimal weight;
 
-    @NotEmpty
+    @NotNull
     private BigDecimal length;
 }
