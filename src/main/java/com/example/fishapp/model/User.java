@@ -2,7 +2,6 @@ package com.example.fishapp.model;
 
 import com.example.fishapp.dto.UserCreateDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,6 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
@@ -29,6 +27,9 @@ public class User {
 
     @Column(nullable = true)
     private String lastName;
+
+    @Column(nullable = true)
+    private Role role;
 
     @Email
     @Column(nullable = false)
@@ -44,6 +45,7 @@ public class User {
     public static User from(UserCreateDto userCreateDto) {
         User user = new User();
         user.setId(UUID.randomUUID());
+        user.setRole(Role.USER);
         user.setEmail(userCreateDto.getEmail());
         user.setFacebookId(userCreateDto.getFacebookId());
         user.setFirstName(userCreateDto.getFirstName());

@@ -4,31 +4,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "fishes")
-public class Fish {
+@Table(name = "images")
+public class Image {
     @Id
     private UUID id;
 
-    private BigDecimal lat;
+    @Embedded
+    private ImageDetails imageDetails;
 
-    private BigDecimal lng;
-
-    private String species;
-
-    private BigDecimal weight;
-
-    private BigDecimal length;
-
-    @OneToOne(mappedBy = "fish")
-    private Image image;
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "fish_id", referencedColumnName = "id")
+    private Fish fish;
 
     @ManyToOne
     @JsonIgnore

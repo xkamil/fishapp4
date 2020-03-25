@@ -1,38 +1,27 @@
 package com.example.fishapp.service;
 
-import com.cloudinary.Cloudinary;
-import com.example.fishapp.dto.FishCreateDto;
-import com.example.fishapp.model.Fish;
-import com.example.fishapp.repository.FishRepository;
-import com.example.fishapp.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import com.example.fishapp.dto.FishCreateDto;
+import com.example.fishapp.model.Fish;
+import com.example.fishapp.model.Image;
+import com.example.fishapp.model.User;
+import com.example.fishapp.repository.FishRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FishService {
-    private static final Logger log = LoggerFactory.getLogger(FishService.class);
-
     private final FishRepository fishRepository;
-    private final Cloudinary cloudinary;
+    private final ImageService imageService;
 
-    public FishService(FishRepository fishRepository, Cloudinary cloudinary) {
+    public FishService(FishRepository fishRepository, ImageService imageService) {
         this.fishRepository = fishRepository;
-        this.cloudinary = cloudinary;
+        this.imageService = imageService;
     }
 
-    public Fish createFish(FishCreateDto fishCreateDto, User userEntity) throws IOException {
-        Map<String, String> uploadResult = cloudinary.uploader().upload(fishCreateDto.getImage().getBytes(), new HashMap());
-        log.info("Upload result: {}", uploadResult);
-
+    public Fish createFish(FishCreateDto fishCreateDto, User userEntity) {
         Fish fish = new Fish();
         fish.setId(UUID.randomUUID());
         fish.setLat(fishCreateDto.getLat());
@@ -41,7 +30,8 @@ public class FishService {
         fish.setWeight(fishCreateDto.getWeight());
         fish.setSpecies(fishCreateDto.getSpecies());
         fish.setUser(userEntity);
-        fish.setImageUrl(uploadResult.get("url"));
+        Image img = imageService.findById(fishCreateDto.getImageId());
+        fish.setImage(img);
         return fishRepository.save(fish);
     }
 

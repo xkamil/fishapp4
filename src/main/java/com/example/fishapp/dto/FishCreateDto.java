@@ -1,17 +1,16 @@
 package com.example.fishapp.dto;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 public class FishCreateDto {
 
     @NotNull
-    private MultipartFile image;
+    private UUID imageId;
 
     @NotNull
     private BigDecimal lat;
