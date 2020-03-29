@@ -1,4 +1,4 @@
-package com.example.fishapp.dto;
+package com.example.fishapp.app.user.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class UserCreateDto {
+public class UserCreateCommandDto {
 
     private String firstName;
 

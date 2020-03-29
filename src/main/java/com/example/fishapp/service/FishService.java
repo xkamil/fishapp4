@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import com.example.fishapp.dto.FishCreateDto;
 import com.example.fishapp.model.Fish;
 import com.example.fishapp.model.Image;
-import com.example.fishapp.model.User;
+import com.example.fishapp.app.user.model.User;
 import com.example.fishapp.repository.FishRepository;
 import org.springframework.stereotype.Service;
 

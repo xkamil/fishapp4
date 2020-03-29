@@ -1,9 +1,9 @@
-package com.example.fishapp.model;
+package com.example.fishapp.app.user.model;
 
-import com.example.fishapp.dto.UserCreateDto;
+import com.example.fishapp.app.user.dto.UserCreateCommandDto;
+import com.example.fishapp.model.Fish;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -22,34 +22,29 @@ public class User {
     @Id
     private UUID id;
 
-    @Column(nullable = true)
     private String firstName;
 
-    @Column(nullable = true)
     private String lastName;
 
-    @Column(nullable = true)
     private Role role;
 
     @Email
-    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = true)
     private String facebookId;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<Fish> fish = new HashSet<>();
 
-    public static User from(UserCreateDto userCreateDto) {
+    public static User from(UserCreateCommandDto userCreateCommandDto) {
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setRole(Role.USER);
-        user.setEmail(userCreateDto.getEmail());
-        user.setFacebookId(userCreateDto.getFacebookId());
-        user.setFirstName(userCreateDto.getFirstName());
-        user.setLastName(userCreateDto.getLastName());
+        user.setEmail(userCreateCommandDto.getEmail());
+        user.setFacebookId(userCreateCommandDto.getFacebookId());
+        user.setFirstName(userCreateCommandDto.getFirstName());
+        user.setLastName(userCreateCommandDto.getLastName());
         return user;
     }
 }

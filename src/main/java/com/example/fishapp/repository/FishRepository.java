@@ -1,7 +1,7 @@
 package com.example.fishapp.repository;
 
 import com.example.fishapp.model.Fish;
-import com.example.fishapp.model.User;
+import com.example.fishapp.app.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

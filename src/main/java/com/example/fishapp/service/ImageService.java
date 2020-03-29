@@ -7,8 +7,8 @@ import com.example.fishapp.exception.ForbiddenException;
 import com.example.fishapp.exception.NotFoundException;
 import com.example.fishapp.model.Image;
 import com.example.fishapp.model.ImageDetails;
-import com.example.fishapp.model.Role;
-import com.example.fishapp.model.User;
+import com.example.fishapp.app.user.model.Role;
+import com.example.fishapp.app.user.model.User;
 import com.example.fishapp.repository.ImageRepository;
 import org.springframework.stereotype.Service;
 

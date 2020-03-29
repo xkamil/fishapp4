@@ -1,6 +1,6 @@
 package com.example.fishapp;
 
-import com.example.fishapp.repository.UserRepository;
+import com.example.fishapp.app.user.repository.UserRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

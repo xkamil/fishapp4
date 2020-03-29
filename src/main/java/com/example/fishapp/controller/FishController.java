@@ -2,7 +2,7 @@ package com.example.fishapp.controller;
 
 import com.example.fishapp.dto.FishCreateDto;
 import com.example.fishapp.model.Fish;
-import com.example.fishapp.model.User;
+import com.example.fishapp.app.user.model.User;
 import com.example.fishapp.repository.FishRepository;
 import com.example.fishapp.service.FishService;
 import org.slf4j.Logger;
@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 @RestController

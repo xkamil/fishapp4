@@ -1,8 +1,8 @@
 package com.example.fishapp.model;
 
+import com.example.fishapp.app.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;

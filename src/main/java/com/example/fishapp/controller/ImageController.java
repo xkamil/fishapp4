@@ -3,7 +3,7 @@ package com.example.fishapp.controller;
 import com.example.fishapp.dto.ImageDetailsUpdateDto;
 import com.example.fishapp.dto.ImageUploadDto;
 import com.example.fishapp.model.Image;
-import com.example.fishapp.model.User;
+import com.example.fishapp.app.user.model.User;
 import com.example.fishapp.service.ImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
