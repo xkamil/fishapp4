@@ -1,19 +1,20 @@
-package com.example.fishapp.service;
+package com.example.fishapp.app.dictionary.service;
 
-import com.example.fishapp.dto.DictionaryCreateDto;
-import com.example.fishapp.dto.DictionaryEntryCreateDto;
-import com.example.fishapp.dto.DictionaryEntryTranslationCreateDto;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import com.example.fishapp.app.dictionary.dto.DictionaryCreateCommandDto;
+import com.example.fishapp.app.dictionary.dto.DictionaryEntryCreateCommandDto;
+import com.example.fishapp.app.dictionary.dto.DictionaryEntryTranslationCreateCommandDto;
+import com.example.fishapp.app.dictionary.model.Dictionary;
 import com.example.fishapp.exception.NotFoundException;
-import com.example.fishapp.model.Dictionary;
-import com.example.fishapp.model.DictionaryEntry;
-import com.example.fishapp.model.DictionaryEntryTranslation;
-import com.example.fishapp.repository.DictionaryEntryRepository;
-import com.example.fishapp.repository.DictionaryEntryTranslationRepository;
-import com.example.fishapp.repository.DictionaryRepository;
+import com.example.fishapp.app.dictionary.model.DictionaryEntry;
+import com.example.fishapp.app.dictionary.model.DictionaryEntryTranslation;
+import com.example.fishapp.app.dictionary.repository.DictionaryEntryRepository;
+import com.example.fishapp.app.dictionary.repository.DictionaryEntryTranslationRepository;
+import com.example.fishapp.app.dictionary.repository.DictionaryRepository;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
-import java.util.*;
 
 @Service
 public class DictionaryService {
@@ -31,28 +32,28 @@ public class DictionaryService {
         this.dictionaryEntryTranslationRepository = dictionaryEntryTranslationRepository;
     }
 
-    public Dictionary createDictionary(DictionaryCreateDto dictionaryCreateDto) {
+    public Dictionary createDictionary(DictionaryCreateCommandDto dictionaryCreateCommandDto) {
         Dictionary dictionary = new Dictionary();
         dictionary.setId(UUID.randomUUID());
-        dictionary.setName(dictionaryCreateDto.getName());
+        dictionary.setName(dictionaryCreateCommandDto.getName());
         return dictionaryRepository.save(dictionary);
     }
 
     public DictionaryEntry createDictionaryEntry(
             UUID dictionaryId,
-            DictionaryEntryCreateDto dictionaryEntryCreateDto) {
+            DictionaryEntryCreateCommandDto dictionaryEntryCreateCommandDto) {
         Dictionary dictionary = dictionaryRepository.findById(dictionaryId).orElseThrow(NotFoundException::new);
         DictionaryEntry dictionaryEntry = new DictionaryEntry();
         dictionaryEntry.setId(UUID.randomUUID());
         dictionaryEntry.setDictionary(dictionary);
-        dictionaryEntry.setKey(dictionaryEntryCreateDto.getName());
+        dictionaryEntry.setKey(dictionaryEntryCreateCommandDto.getName());
         return dictionaryEntryRepository.save(dictionaryEntry);
     }
 
 
     public DictionaryEntryTranslation createDictionaryEntryTranslation(
             UUID dictionaryEntryId,
-            DictionaryEntryTranslationCreateDto dictionaryEntryCreateDto) {
+            DictionaryEntryTranslationCreateCommandDto dictionaryEntryCreateDto) {
         DictionaryEntry dictionaryEntry = dictionaryEntryRepository.findById(dictionaryEntryId).orElseThrow(NotFoundException::new);
         DictionaryEntryTranslation dictionaryEntryTranslation = new DictionaryEntryTranslation();
         dictionaryEntryTranslation.setDictionaryEntry(dictionaryEntry);
@@ -60,10 +61,6 @@ public class DictionaryService {
         dictionaryEntryTranslation.setLocale(dictionaryEntryCreateDto.getLocale());
         dictionaryEntryTranslation.setValue(dictionaryEntryCreateDto.getName());
         return dictionaryEntryTranslationRepository.save(dictionaryEntryTranslation);
-    }
-
-    public Dictionary findByName(String dictionaryName) {
-        return dictionaryRepository.findByName(dictionaryName).orElseThrow(NotFoundException::new);
     }
 
     public Map<String, String> findByNameAndLocale(String dictionaryName, String locale) {

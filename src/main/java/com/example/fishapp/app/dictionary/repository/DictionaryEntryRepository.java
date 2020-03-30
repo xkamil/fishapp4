@@ -1,9 +1,8 @@
-package com.example.fishapp.repository;
+package com.example.fishapp.app.dictionary.repository;
 
-import com.example.fishapp.model.DictionaryEntry;
+import com.example.fishapp.app.dictionary.model.DictionaryEntry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.UUID;
 
 @Repository

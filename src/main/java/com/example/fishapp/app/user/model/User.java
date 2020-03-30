@@ -1,6 +1,6 @@
 package com.example.fishapp.app.user.model;
 
-import com.example.fishapp.app.user.dto.UserCreateCommandDto;
+import com.example.fishapp.app.user.dto.UserCreateDto;
 import com.example.fishapp.model.Fish;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -37,14 +37,14 @@ public class User {
     @JsonIgnore
     private Set<Fish> fish = new HashSet<>();
 
-    public static User from(UserCreateCommandDto userCreateCommandDto) {
+    public static User from(UserCreateDto userCreateDto) {
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setRole(Role.USER);
-        user.setEmail(userCreateCommandDto.getEmail());
-        user.setFacebookId(userCreateCommandDto.getFacebookId());
-        user.setFirstName(userCreateCommandDto.getFirstName());
-        user.setLastName(userCreateCommandDto.getLastName());
+        user.setEmail(userCreateDto.getEmail());
+        user.setFacebookId(userCreateDto.getFacebookId());
+        user.setFirstName(userCreateDto.getFirstName());
+        user.setLastName(userCreateDto.getLastName());
         return user;
     }
 }

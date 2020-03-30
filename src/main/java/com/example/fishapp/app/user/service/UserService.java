@@ -1,7 +1,7 @@
 package com.example.fishapp.app.user.service;
 
 import java.util.Optional;
-import com.example.fishapp.app.user.dto.UserCreateCommandDto;
+import com.example.fishapp.app.user.dto.UserCreateDto;
 import com.example.fishapp.app.user.model.User;
 import com.example.fishapp.app.user.repository.UserRepository;
 import com.example.fishapp.app.user.repository.UserQueryRepository;
@@ -16,11 +16,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getOrCreate(UserCreateCommandDto userCreateCommandDto) {
-        Optional<User> user = userRepository.findByEmail(userCreateCommandDto.getEmail());
+    public User getOrCreate(UserCreateDto userCreateDto) {
+        Optional<User> user = userRepository.findByEmail(userCreateDto.getEmail());
 
         return user.orElseGet(() -> {
-            User newUser = User.from(userCreateCommandDto);
+            User newUser = User.from(userCreateDto);
             return userRepository.save(newUser);
         });
     }

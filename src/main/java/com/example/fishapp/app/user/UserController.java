@@ -3,7 +3,7 @@ package com.example.fishapp.app.user;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
-import com.example.fishapp.app.user.dto.UserCreateCommandDto;
+import com.example.fishapp.app.user.dto.UserCreateDto;
 import com.example.fishapp.app.user.model.User;
 import com.example.fishapp.app.user.repository.UserRepository;
 import com.example.fishapp.app.user.repository.UserQueryRepository;
@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @PutMapping
-    private User getOrCreate(@RequestBody @Valid UserCreateCommandDto userCreateCommandDto) {
-        return userService.getOrCreate(userCreateCommandDto);
+    private User getOrCreate(@RequestBody @Valid UserCreateDto userCreateDto) {
+        return userService.getOrCreate(userCreateDto);
     }
 
     @GetMapping("/me")
