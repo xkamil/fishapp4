@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.example.fishapp.app.dictionary.model.QDictionary;
 import com.example.fishapp.app.dictionary.model.QDictionaryEntry;
 import com.example.fishapp.app.dictionary.model.QDictionaryEntryTranslation;
+import com.example.fishapp.app.dictionary.view.DictionaryView;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ public class DictionaryQueryRepository {
         this.queryFactory = queryFactory;
     }
 
-    public Map<String, String> findByDictionaryNameAndLocale(String name, String locale) {
+    public Map<String, String> findByNameAndLocale(String name, String locale) {
         QDictionary dictionary = QDictionary.dictionary;
         QDictionaryEntry entry = QDictionaryEntry.dictionaryEntry;
         QDictionaryEntryTranslation entryTranslation = QDictionaryEntryTranslation.dictionaryEntryTranslation;
@@ -29,6 +30,7 @@ public class DictionaryQueryRepository {
                 .from(dictionary)
                 .innerJoin(entry).on(entry.dictionary.eq(dictionary))
                 .leftJoin(entryTranslation).on(entryTranslation.dictionaryEntry.eq(entry).and(entryTranslation.locale.eq(locale)))
+                .where(dictionary.name.eq(name))
                 .fetch();
 
         return entries.stream()

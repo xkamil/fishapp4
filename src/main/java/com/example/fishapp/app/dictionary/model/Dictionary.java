@@ -25,5 +25,5 @@ public class Dictionary {
 
     @OneToMany(mappedBy = "dictionary")
     @JsonIgnore
-    private Set<DictionaryEntry> dictionaryEntries = new HashSet<>();
+    private Set<Entry> dictionaryEntries = new HashSet<>();
 }

@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "dictionary_entries")
-public class DictionaryEntry {
+public class Entry {
     @Id
     private UUID id;
 
@@ -26,5 +26,5 @@ public class DictionaryEntry {
 
     @OneToMany(mappedBy = "dictionaryEntry")
     @JsonIgnore
-    private Set<DictionaryEntryTranslation> dictionaryEntryTranslations = new HashSet<>();
+    private Set<EntryTranslation> entryTranslations = new HashSet<>();
 }

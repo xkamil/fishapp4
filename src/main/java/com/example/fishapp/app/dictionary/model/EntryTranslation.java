@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "dictionary_entry_translations")
-public class DictionaryEntryTranslation {
+public class EntryTranslation {
     @Id
     private UUID id;
 
@@ -26,5 +26,5 @@ public class DictionaryEntryTranslation {
 
     @ManyToOne
     @JsonIgnore
-    private DictionaryEntry dictionaryEntry;
+    private Entry entry;
 }
