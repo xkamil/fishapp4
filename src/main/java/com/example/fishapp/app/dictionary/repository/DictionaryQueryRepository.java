@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import com.example.fishapp.app.dictionary.model.QDictionary;
-import com.example.fishapp.app.dictionary.model.QDictionaryEntry;
-import com.example.fishapp.app.dictionary.model.QDictionaryEntryTranslation;
-import com.example.fishapp.app.dictionary.view.DictionaryView;
+import com.example.fishapp.app.dictionary.model.QEntry;
+import com.example.fishapp.app.dictionary.model.QEntryTranslation;
 import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -23,13 +22,13 @@ public class DictionaryQueryRepository {
 
     public Map<String, String> findByNameAndLocale(String name, String locale) {
         QDictionary dictionary = QDictionary.dictionary;
-        QDictionaryEntry entry = QDictionaryEntry.dictionaryEntry;
-        QDictionaryEntryTranslation entryTranslation = QDictionaryEntryTranslation.dictionaryEntryTranslation;
+        QEntry entry = QEntry.entry;
+        QEntryTranslation entryTranslation = QEntryTranslation.entryTranslation;
 
         List<Tuple> entries = queryFactory.select(entry.key, entryTranslation.value)
                 .from(dictionary)
                 .innerJoin(entry).on(entry.dictionary.eq(dictionary))
-                .leftJoin(entryTranslation).on(entryTranslation.dictionaryEntry.eq(entry).and(entryTranslation.locale.eq(locale)))
+                .leftJoin(entryTranslation).on(entryTranslation.entry.eq(entry).and(entryTranslation.locale.eq(locale)))
                 .where(dictionary.name.eq(name))
                 .fetch();
 

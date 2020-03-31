@@ -27,4 +27,11 @@ public class EntryTranslation {
     @ManyToOne
     @JsonIgnore
     private Entry entry;
+
+    public EntryTranslation(@NotEmpty String value, @NotEmpty String locale, Entry entry) {
+        this.id = UUID.randomUUID();
+        this.value = value;
+        this.locale = locale;
+        this.entry = entry;
+    }
 }

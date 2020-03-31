@@ -1,18 +1,12 @@
 package com.example.fishapp.app.dictionary;
 
-import com.example.fishapp.app.dictionary.dto.DictionaryCreateDto;
-import com.example.fishapp.app.dictionary.model.Dictionary;
-import com.example.fishapp.app.dictionary.model.Entry;
-import com.example.fishapp.app.dictionary.model.EntryTranslation;
-import com.example.fishapp.app.dictionary.dto.EntryCreateDto;
-import com.example.fishapp.app.dictionary.dto.EntryTranslationCreateDto;
-import com.example.fishapp.app.dictionary.repository.DictionaryQueryRepository;
-import com.example.fishapp.app.dictionary.service.DictionaryService;
-import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.Map;
-import java.util.UUID;
+import com.example.fishapp.app.dictionary.dto.DictionaryUploadDto;
+import com.example.fishapp.app.dictionary.repository.DictionaryQueryRepository;
+import com.example.fishapp.app.dictionary.service.DictionaryService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/dictionaries")
@@ -33,24 +27,14 @@ public class DictionaryController {
         return dictionaryQueryRepository.findByNameAndLocale(name, locale);
     }
 
-    @PostMapping
-    public Dictionary createDictionary(@RequestBody @Valid DictionaryCreateDto dictionaryCreateDto) {
-        return dictionaryService.createDictionary(dictionaryCreateDto);
-    }
+    @PutMapping(path = "/upload", consumes = {"multipart/form-data"})
+    public String upload(
+            @ModelAttribute @Valid DictionaryUploadDto dictionaryUploadDto) throws Exception {
+        String fileContent = new String(dictionaryUploadDto.getDictionary().getBytes());
+        String dictionaryName = dictionaryUploadDto.getDictionary().getOriginalFilename().replace(".csv", "");
+        dictionaryService.createDictionary(dictionaryName, fileContent);
 
-    @PostMapping("/{dictionaryId}/entries")
-    public Entry createDictionaryEntry(
-            @PathVariable("dictionaryId") UUID dictionaryId,
-            @RequestBody @Valid EntryCreateDto entryCreateDto) {
-        return dictionaryService.createEntry(dictionaryId, entryCreateDto);
+        return fileContent;
     }
-
-    @PostMapping("/entries/{entryId}/translations")
-    public EntryTranslation createEntry(
-            @PathVariable("entryId") UUID dictionaryEntryId,
-            @RequestBody @Valid EntryTranslationCreateDto dictionaryEntryTranslation) {
-        return dictionaryService.createEntryTranslation(dictionaryEntryId, dictionaryEntryTranslation);
-    }
-
 
 }
