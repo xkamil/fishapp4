@@ -1,17 +1,16 @@
 package com.example.fishapp.app.dictionary.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "dictionary_entry_translations")
 public class EntryTranslation {
@@ -25,7 +24,6 @@ public class EntryTranslation {
     private String locale;
 
     @ManyToOne
-    @JsonIgnore
     private Entry entry;
 
     public EntryTranslation(@NotEmpty String value, @NotEmpty String locale, Entry entry) {

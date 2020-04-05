@@ -12,7 +12,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DictionaryQueryRepository {
+public class  DictionaryQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
